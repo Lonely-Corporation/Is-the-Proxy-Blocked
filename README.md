@@ -8,5 +8,5 @@ Checking if proxy links are blocked using brute forcing style.
    ```bash
    git clone https://github.com/Lonely-Corporation/Is-the-Proxy-Blocked.git
    ```
-3. Edit the links.txt file and fill it with links to check
+3. Edit the links.txt file and fill it with links to check (example links in links.txt)
 4. Run the code
