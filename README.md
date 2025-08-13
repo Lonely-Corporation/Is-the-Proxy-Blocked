@@ -1,4 +1,5 @@
 # Is the proxy blocked?
+###### More of a Linewize tool
 ### A nice tool
 Checking if proxy links are blocked using brute forcing style.
 ## How to Use
@@ -7,5 +8,5 @@ Checking if proxy links are blocked using brute forcing style.
    ```bash
    git clone https://github.com/Lonely-Corporation/Is-the-Proxy-Blocked.git
    ```
-3. Edit the links.txt file and fill it with links to check
+3. Edit the links.txt file and fill it with links to check (example links in links.txt)
 4. Run the code
