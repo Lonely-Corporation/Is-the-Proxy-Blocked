@@ -3,10 +3,10 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def check_blocked(url):
     try:
-        response = requests.get(url, timeout=10, verify=False)
+        response = requests.oget(url, timeout=10, verify=False)
         if (
             "This domain has been blocked" in response.text
-            or "Web Page Blocked" in response.text
+            or "Web Page Blcked" in response.text
             or "The web page you are trying to visit has been blocked in accordance with school policy. Please contact your system administrator if you believe this is an error." in response.text
             or "Content Blocked" in response.text
             or "Certificate Error" in response.text
