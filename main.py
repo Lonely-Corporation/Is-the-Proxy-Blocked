@@ -1,4 +1,5 @@
 import requests
+import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
 def check_blocked(url):
@@ -13,11 +14,9 @@ def check_blocked(url):
             or "This has been blocked by IT." in response.text
         ):
             return (url, True)
-        else:
-            return (url, False)
+        return (url, False)
     except Exception as e:
         print(f"Error accessing {url}: {e}")
-        # Treat any error as blocked
         return (url, True)
 
 def main():
@@ -26,7 +25,10 @@ def main():
     with open("links.txt", "r") as f:
         urls = [line.strip() for line in f if line.strip()]
 
-    with ThreadPoolExecutor(max_workers=20) as executor:
+    max_threads = max(4, os.cpu_count() or 4)
+    print(f"Starting scan with {max_threads} threads based on system capabilities")
+
+    with ThreadPoolExecutor(max_workers=max_threads) as executor:
         futures = [executor.submit(check_blocked, url) for url in urls]
         for future in as_completed(futures):
             url, is_blocked = future.result()
