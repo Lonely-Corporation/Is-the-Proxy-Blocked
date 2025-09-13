@@ -1,9 +1,16 @@
 import requests
 import os
+import urllib3
+import threading
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+print_lock = threading.Lock()
+
 def check_blocked(index, url):
-    print(f"Scanning site {index + 1}: {url}")
+    with print_lock:
+        print(f"Scanning site {index + 1}: {url}")
     try:
         response = requests.get(url, timeout=10, verify=False)
         if (
@@ -17,7 +24,8 @@ def check_blocked(index, url):
             return (url, True)
         return (url, False)
     except Exception as e:
-        print(f"Error accessing {url}: {e}")
+        with print_lock:
+            print(f"Error accessing {url}: {e}")
         return (url, True)
 
 def main():
