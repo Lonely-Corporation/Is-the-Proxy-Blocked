@@ -2,7 +2,8 @@ import requests
 import os
 from concurrent.futures import ThreadPoolExecutor, as_completed
 
-def check_blocked(url):
+def check_blocked(index, url):
+    print(f"Scanning site {index + 1}: {url}")
     try:
         response = requests.get(url, timeout=10, verify=False)
         if (
@@ -29,7 +30,7 @@ def main():
     print(f"Starting scan with {max_threads} threads based on system capabilities")
 
     with ThreadPoolExecutor(max_workers=max_threads) as executor:
-        futures = [executor.submit(check_blocked, url) for url in urls]
+        futures = [executor.submit(check_blocked, i, url) for i, url in enumerate(urls)]
         for future in as_completed(futures):
             url, is_blocked = future.result()
             if is_blocked:
